@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { getCollection } from 'astro:content';
 
 export interface Props {
   frontmatter: {
@@ -15,6 +16,11 @@ export interface Props {
 
 const { frontmatter } = Astro.props;
 const { term, category, thinker, bookRef, relatedTerms, tags, difficulty } = frontmatter;
+
+// Get all glossary terms for alphabetical navigation
+const allTerms = await getCollection('glossary');
+const sortedTerms = allTerms.sort((a, b) => a.data.term.localeCompare(b.data.term));
+const currentSlug = Astro.url.pathname.split('/').filter(Boolean).pop() || '';
 
 const categoryColors = {
   epistemology: 'bg-blue-100 text-blue-800',
@@ -36,6 +42,28 @@ const difficultyEmoji = {
       <!-- Sidebar -->
       <aside class="lg:col-span-1">
         <div class="sticky top-24 space-y-6">
+          <!-- Alphabetical Term List -->
+          <div class="bg-white rounded-lg border border-gray-200 p-4">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-semibold text-gray-900">All Terms</h3>
+              <span class="text-xs text-gray-500">{sortedTerms.length}</span>
+            </div>
+            <div class="max-h-96 overflow-y-auto pr-2 -mr-2 space-y-0.5">
+              {sortedTerms.map(t => (
+                <a
+                  href={`/glossary/${t.slug}`}
+                  class={`block px-2 py-1.5 text-sm rounded transition-all ${
+                    t.slug === currentSlug
+                      ? 'bg-epistemology text-white font-medium shadow-sm'
+                      : 'text-gray-700 hover:bg-epistemology/10 hover:text-epistemology'
+                  }`}
+                >
+                  {t.data.term}
+                </a>
+              ))}
+            </div>
+          </div>
+
           <div class="bg-white rounded-lg border border-gray-200 p-4">
             <h3 class="font-semibold text-gray-900 mb-3">Category</h3>
             <span class={`inline-block px-3 py-1 rounded-full text-sm font-medium ${categoryColors[category]}`}>
