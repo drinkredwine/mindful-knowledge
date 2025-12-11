@@ -2,9 +2,11 @@ import { defineConfig } from 'astro/config';
 import vue from '@astrojs/vue';
 import tailwindcss from '@tailwindcss/vite';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default defineConfig({
-  site: 'https://yourusername.github.io',
-  base: '/tuke',
+  site: 'https://drinkredwine.github.io',
+  base: isProduction ? '/mindful-knowledge' : '/',
   integrations: [
     vue(),
   ],
