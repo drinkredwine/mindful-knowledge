@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { marked } from 'marked';
 
 export type SlideEntry = CollectionEntry<'slides'>;
 
@@ -44,4 +45,8 @@ export function getNavigationData(currentSlide: number, totalSlides: number) {
     nextSlide: currentSlide + 1,
     progress: Math.round((currentSlide / (totalSlides - 1)) * 100)
   };
+}
+
+export async function renderMarkdown(markdown: string): Promise<string> {
+  return await marked.parse(markdown);
 }

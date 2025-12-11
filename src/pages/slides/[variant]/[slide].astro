@@ -1,5 +1,5 @@
 ---
-import { getAllSlides, parseSlideVariants, getNavigationData } from '../../../utils/slides';
+import { getAllSlides, parseSlideVariants, getNavigationData, renderMarkdown } from '../../../utils/slides';
 import SlideLayout from '../../../layouts/SlideLayout.astro';
 import MinimalSlide from '../../../components/slides/MinimalSlide.astro';
 import IdeasSlide from '../../../components/slides/IdeasSlide.astro';
@@ -24,7 +24,10 @@ const { slide, variant } = Astro.props;
 const allSlides = await getAllSlides();
 const navData = getNavigationData(slide.data.slideNumber, allSlides.length);
 const variants = parseSlideVariants(slide.body);
-const content = variants[variant as keyof typeof variants];
+const markdownContent = variants[variant as keyof typeof variants];
+
+// Render markdown to HTML
+const content = await renderMarkdown(markdownContent);
 ---
 
 <SlideLayout

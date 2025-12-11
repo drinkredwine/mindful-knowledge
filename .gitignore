@@ -1,6 +1,8 @@
 # Build outputs
 dist/
 .astro/
+.claude/settings.local.json
+.claude
 
 # Dependencies
 node_modules/
