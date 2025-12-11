@@ -2,7 +2,7 @@
 slideNumber: 9
 title: "Organizational Knowledge Reality"
 section: "Practice"
-bookCover: "/images/book-covers/collins.svg"
+bookCover: "/covers/be-2-0-beyond-entrepreneurship-2-0.jpg"
 glossaryTerms: ["be-20-framework", "operational-knowledge", "knowledge-fragmentation"]
 ---
 

@@ -2,7 +2,7 @@
 slideNumber: 5
 title: "The SECI Model Doesn't Work"
 section: "Critique"
-bookCover: "/images/book-covers/nonaka.svg"
+bookCover: "/covers/nonaka-knowledge-generating-company.jpg"
 glossaryTerms: ["seci-model", "externalization-problem"]
 ---
 

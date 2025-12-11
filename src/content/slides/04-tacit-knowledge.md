@@ -2,7 +2,7 @@
 slideNumber: 4
 title: "We Can Know More Than We Can Tell"
 section: "Core Concept"
-bookCover: "/images/book-covers/polanyi-tacit.svg"
+bookCover: "/covers/polany-personal-knowledge.webp"
 glossaryTerms: ["tacit-knowledge", "knowing-how-vs-knowing-that"]
 ---
 
