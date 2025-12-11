@@ -2,7 +2,7 @@
 slideNumber: 7
 title: "7 Mindfulness Attitudes"
 section: "Alternative Framework"
-bookCover: "/images/book-covers/kabat-zinn.svg"
+bookCover: "/covers/kabat-zinn-full-catastrophe-living.jpg"
 glossaryTerms: ["mindfulness-attitudes", "beginners-mind", "non-judging"]
 ---
 
