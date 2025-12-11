@@ -2,7 +2,7 @@
 slideNumber: 8
 title: "Development Stages"
 section: "Growth"
-bookCover: "/images/book-covers/kegan.jpg"
+bookCover: "/images/book-covers/kegan.svg"
 glossaryTerms: ["kegan-stages", "self-transforming-mind", "both-and-mindset"]
 ---
 

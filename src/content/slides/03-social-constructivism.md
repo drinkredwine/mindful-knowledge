@@ -2,7 +2,7 @@
 slideNumber: 3
 title: "Different Communities, Different Knowledge"
 section: "Epistemology"
-bookCover: "/images/book-covers/kuhn.jpg"
+bookCover: "/images/book-covers/kuhn.svg"
 glossaryTerms: ["social-constructivism", "paradigm-shift"]
 ---
 
