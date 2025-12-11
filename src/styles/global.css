@@ -1,10 +1,13 @@
 @import "tailwindcss";
 
-:root {
+@theme {
   --color-epistemology: #1e40af;
   --color-methodology: #7c3aed;
   --color-practice: #059669;
   --color-philosophy: #dc2626;
+
+  --font-family-sans: Inter, system-ui, sans-serif;
+  --font-family-serif: Merriweather, Georgia, serif;
 }
 
 body {
