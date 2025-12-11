@@ -1,0 +1,26 @@
+---
+import { getTermBySlug } from '@/utils/glossary';
+
+interface Props {
+  slug: string;
+  displayText?: string;
+  class?: string;
+}
+
+const { slug, displayText, class: className = '' } = Astro.props;
+const term = await getTermBySlug(slug);
+---
+
+{term ? (
+  <a
+    href={`/glossary/${slug}`}
+    class={`term-link font-medium text-blue-600 hover:text-blue-800 hover:underline ${className}`}
+    title={term.data.term}
+  >
+    {displayText || term.data.term}
+  </a>
+) : (
+  <span class={`term-link-missing text-gray-500 ${className}`} title="Term not found">
+    {displayText || slug}
+  </span>
+)}

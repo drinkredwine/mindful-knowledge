@@ -1,0 +1,99 @@
+{
+  "books": {
+    "polanyi-tacit": {
+      "id": "polanyi-tacit",
+      "author": "Michael Polanyi",
+      "title": "The Tacit Dimension",
+      "year": 1966,
+      "isbn": "9780226672984",
+      "cover": "/images/book-covers/polanyi-tacit.svg",
+      "topics": ["tacit-knowledge", "epistemology", "knowing-how"],
+      "summary": "Polanyi argues that much of human knowledge is 'tacit' - we know more than we can tell. This challenges attempts to codify all organizational knowledge.",
+      "keyQuote": "We can know more than we can tell.",
+      "relevance": "Core critique of traditional knowledge management systems that assume all knowledge can be documented."
+    },
+    "nonaka-knowledge-creating": {
+      "id": "nonaka-knowledge-creating",
+      "author": "Ikujiro Nonaka",
+      "title": "The Knowledge-Creating Company",
+      "year": 1995,
+      "isbn": "9780195092691",
+      "cover": "/images/book-covers/nonaka.svg",
+      "topics": ["seci-model", "organizational-learning"],
+      "summary": "Introduces the SECI model (Socialization, Externalization, Combination, Internalization) for organizational knowledge creation.",
+      "critique": "Misunderstands Polanyi - treats tacit knowledge as convertible to explicit. Externalization is often impossible, not just difficult.",
+      "relevance": "Popular but flawed KM model. Understanding its limits is crucial."
+    },
+    "kabat-zinn-mindfulness": {
+      "id": "kabat-zinn-mindfulness",
+      "author": "Jon Kabat-Zinn",
+      "title": "Full Catastrophe Living",
+      "year": 1990,
+      "isbn": "9780385303125",
+      "cover": "/images/book-covers/kabat-zinn.svg",
+      "topics": ["mindfulness-attitudes", "non-judgment", "beginners-mind"],
+      "summary": "Introduces Mindfulness-Based Stress Reduction (MBSR) with 7 foundational attitudes applicable to knowledge work.",
+      "keyQuote": "You can't stop the waves, but you can learn to surf.",
+      "relevance": "Alternative epistemology for knowledge work - non-judging, beginner's mind, patience. Ancient wisdom reframed for modern context."
+    },
+    "kegan-in-over-our-heads": {
+      "id": "kegan-in-over-our-heads",
+      "author": "Robert Kegan",
+      "title": "In Over Our Heads",
+      "year": 1994,
+      "isbn": "9780674445888",
+      "cover": "/images/book-covers/kegan.svg",
+      "topics": ["kegan-stages", "adult-development", "self-transforming-mind"],
+      "summary": "Describes stages of adult cognitive development from Socialized to Self-Authoring to Self-Transforming mind.",
+      "keyInsight": "Most adults never reach self-authoring, fewer reach self-transforming. Development requires specific challenges, not just information.",
+      "relevance": "Can we accelerate development through education? Or does wisdom require lived experience?"
+    },
+    "collins-be-20": {
+      "id": "collins-be-20",
+      "author": "Jim Collins & Bill Lazier",
+      "title": "Beyond Entrepreneurship 2.0",
+      "year": 2020,
+      "isbn": "9780399564253",
+      "cover": "/images/book-covers/collins.svg",
+      "topics": ["be-20-framework", "vision-mission-values"],
+      "summary": "Framework for organizational knowledge architecture: Vision → Mission → Values → BHAG → Strategy → OKRs → Tasks.",
+      "relevance": "Aspirational skeleton vs. operational reality. Organizations struggle with 'what did we decide yesterday?' not 'what's our vision?'"
+    },
+    "kuhn-structure": {
+      "id": "kuhn-structure",
+      "author": "Thomas Kuhn",
+      "title": "The Structure of Scientific Revolutions",
+      "year": 1962,
+      "isbn": "9780226458083",
+      "cover": "/images/book-covers/kuhn.svg",
+      "topics": ["paradigm-shift", "social-constructivism"],
+      "summary": "Science progresses through paradigm shifts, not steady accumulation. 'Normal science' operates within unquestioned assumptions.",
+      "keyInsight": "Different paradigms are incommensurable - scientists in different paradigms literally see different worlds.",
+      "relevance": "Academic vs. startup knowledge are different paradigms. 'Marketing isn't science' is paradigm thinking, not truth."
+    },
+    "krishnamurti-freedom": {
+      "id": "krishnamurti-freedom",
+      "author": "Jiddu Krishnamurti",
+      "title": "Freedom from the Known",
+      "year": 1969,
+      "isbn": "9780060648084",
+      "cover": "/images/book-covers/krishnamurti.svg",
+      "topics": ["freedom-from-known", "beginners-mind"],
+      "summary": "Accumulated knowledge becomes a prison that prevents seeing reality freshly. True observation requires freedom from past conditioning.",
+      "keyQuote": "The ability to observe without evaluating is the highest form of intelligence.",
+      "relevance": "No paper in Nature, yet profound wisdom. Alternative to epistemic gatekeeping."
+    },
+    "seligman-learned-optimism": {
+      "id": "seligman-learned-optimism",
+      "author": "Martin Seligman",
+      "title": "Learned Optimism",
+      "year": 1990,
+      "isbn": "9781400078394",
+      "cover": "/images/book-covers/seligman.svg",
+      "topics": ["learned-optimism", "positive-psychology"],
+      "summary": "Optimism is not a fixed trait but an explanatory style that can be learned. Introduces the 3 P's: Permanence, Pervasiveness, Personalization.",
+      "keyInsight": "Knowledge constructed through new lens, not 'discovered'. Practical application changes outcomes.",
+      "relevance": "Example of paradigm creation within psychology itself - studying flourishing vs. pathology."
+    }
+  }
+}

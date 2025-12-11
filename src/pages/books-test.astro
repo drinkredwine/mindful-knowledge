@@ -1,0 +1,81 @@
+---
+import BookCard from '@/components/BookCard.astro';
+import BookReference from '@/components/glossary/BookReference.astro';
+
+const title = "Book Components Test Page";
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+</head>
+<body class="bg-gray-50 p-8">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-gray-900">{title}</h1>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800">BookReference Components (Inline)</h2>
+      <div class="space-y-4">
+        <BookReference bookRef="polanyi-tacit" />
+        <BookReference bookRef="nonaka-knowledge-creating" />
+        <BookReference bookRef="kabat-zinn-mindfulness" />
+        <BookReference bookRef="kegan-in-over-our-heads" />
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800">BookCard Components (Full Display)</h2>
+      <div class="grid grid-cols-1 gap-6">
+        <BookCard bookId="polanyi-tacit" />
+        <BookCard bookId="nonaka-knowledge-creating" />
+        <BookCard bookId="kabat-zinn-mindfulness" />
+        <BookCard bookId="kegan-in-over-our-heads" />
+        <BookCard bookId="collins-be-20" />
+        <BookCard bookId="kuhn-structure" />
+        <BookCard bookId="krishnamurti-freedom" />
+        <BookCard bookId="seligman-learned-optimism" />
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800">Book Covers Gallery</h2>
+      <div class="grid grid-cols-4 gap-4">
+        <div>
+          <img src="/images/book-covers/polanyi-tacit.svg" alt="Polanyi" class="w-full rounded shadow" />
+          <p class="text-xs text-center mt-2">Polanyi</p>
+        </div>
+        <div>
+          <img src="/images/book-covers/nonaka.svg" alt="Nonaka" class="w-full rounded shadow" />
+          <p class="text-xs text-center mt-2">Nonaka</p>
+        </div>
+        <div>
+          <img src="/images/book-covers/kabat-zinn.svg" alt="Kabat-Zinn" class="w-full rounded shadow" />
+          <p class="text-xs text-center mt-2">Kabat-Zinn</p>
+        </div>
+        <div>
+          <img src="/images/book-covers/kegan.svg" alt="Kegan" class="w-full rounded shadow" />
+          <p class="text-xs text-center mt-2">Kegan</p>
+        </div>
+        <div>
+          <img src="/images/book-covers/collins.svg" alt="Collins" class="w-full rounded shadow" />
+          <p class="text-xs text-center mt-2">Collins</p>
+        </div>
+        <div>
+          <img src="/images/book-covers/kuhn.svg" alt="Kuhn" class="w-full rounded shadow" />
+          <p class="text-xs text-center mt-2">Kuhn</p>
+        </div>
+        <div>
+          <img src="/images/book-covers/krishnamurti.svg" alt="Krishnamurti" class="w-full rounded shadow" />
+          <p class="text-xs text-center mt-2">Krishnamurti</p>
+        </div>
+        <div>
+          <img src="/images/book-covers/seligman.svg" alt="Seligman" class="w-full rounded shadow" />
+          <p class="text-xs text-center mt-2">Seligman</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

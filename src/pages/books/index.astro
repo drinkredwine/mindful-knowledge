@@ -1,0 +1,105 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BookCard from '@/components/books/BookCard.vue';
+import booksData from '../../../public/books.json';
+
+const books = Object.values(booksData.books);
+
+// Extract all unique topics for filtering
+const allTopics = [...new Set(books.flatMap(book => book.topics))].sort();
+---
+
+<BaseLayout
+  title="Books - TUKE Knowledge Management Demo"
+  description="8 influential books on knowledge management, from Polanyi's tacit knowledge to Krishnamurti's freedom from the known."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+        Key References
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Eight influential books that inform our understanding of knowledge management,
+        from academic foundations to contemplative wisdom.
+      </p>
+    </div>
+
+    <!-- Introduction -->
+    <div class="bg-gradient-to-br from-epistemology/10 to-methodology/10 rounded-xl p-8 mb-12 border-l-4 border-epistemology">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">About This Collection</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">
+        These books represent different perspectives on knowledge, learning, and wisdom:
+      </p>
+      <ul class="list-disc pl-6 text-gray-700 space-y-2">
+        <li><strong>Epistemological foundations</strong> - Polanyi on tacit knowledge, Kuhn on paradigm shifts</li>
+        <li><strong>Organizational practice</strong> - Nonaka's SECI model, Collins' vision frameworks</li>
+        <li><strong>Human development</strong> - Kegan's stages of adult cognitive development</li>
+        <li><strong>Contemplative wisdom</strong> - Kabat-Zinn's mindfulness, Krishnamurti's freedom from conditioning</li>
+        <li><strong>Applied psychology</strong> - Seligman's learned optimism and explanatory styles</li>
+      </ul>
+      <p class="text-gray-700 leading-relaxed mt-4">
+        Each book connects to specific terms in the <a href="/glossary" class="text-epistemology hover:underline font-semibold">glossary</a> and
+        concepts in the <a href="/slides/minimal/1" class="text-methodology hover:underline font-semibold">presentation slides</a>.
+      </p>
+    </div>
+
+    <!-- Topic Filter (Static - could be made interactive with Vue) -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold text-gray-900 mb-3">Browse by Topic</h3>
+      <div class="flex flex-wrap gap-2">
+        {allTopics.map(topic => (
+          <a
+            href={`/glossary/${topic}`}
+            class="px-3 py-1 bg-white border-2 border-gray-200 hover:border-epistemology text-gray-700 hover:text-epistemology rounded-lg text-sm font-medium transition-colors"
+          >
+            {topic.replace(/-/g, ' ')}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Books Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {books.map(book => (
+        <BookCard
+          client:load
+          id={book.id}
+          author={book.author}
+          title={book.title}
+          year={book.year}
+          isbn={book.isbn}
+          cover={book.cover}
+          topics={book.topics}
+          summary={book.summary}
+          keyQuote={(book as any).keyQuote}
+          keyInsight={(book as any).keyInsight}
+          critique={(book as any).critique}
+          relevance={book.relevance}
+        />
+      ))}
+    </div>
+
+    <!-- Related Navigation -->
+    <div class="mt-16 bg-gray-50 rounded-xl p-8 text-center">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">Explore More</h2>
+      <p class="text-gray-600 mb-6">
+        These books inform the concepts throughout this demonstration
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/glossary"
+          class="inline-flex items-center justify-center px-6 py-3 bg-epistemology text-white font-semibold rounded-lg hover:bg-epistemology/90 transition-colors"
+        >
+          Browse Glossary Terms
+        </a>
+        <a
+          href="/slides/minimal/1"
+          class="inline-flex items-center justify-center px-6 py-3 bg-methodology text-white font-semibold rounded-lg hover:bg-methodology/90 transition-colors"
+        >
+          View Presentation Slides
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

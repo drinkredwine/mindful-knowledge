@@ -1,0 +1,104 @@
+---
+interface Props {
+  title: string;
+  content: string;
+}
+
+const { title, content } = Astro.props;
+---
+
+<div class="ideas-slide-content h-screen flex items-center justify-center p-12">
+  <div class="max-w-5xl w-full">
+    <div class="content" set:html={content} />
+  </div>
+</div>
+
+<style>
+  .ideas-slide-content {
+    background: white;
+    color: #1a202c;
+  }
+
+  .ideas-slide-content :global(h1) {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    color: #2d3748;
+    line-height: 1.2;
+  }
+
+  .ideas-slide-content :global(h2) {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: #4a5568;
+  }
+
+  .ideas-slide-content :global(h3) {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: #667eea;
+  }
+
+  .ideas-slide-content :global(ul) {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+  }
+
+  .ideas-slide-content :global(li) {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    padding-left: 2.5rem;
+    position: relative;
+    line-height: 1.4;
+  }
+
+  .ideas-slide-content :global(li::before) {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #667eea;
+    font-weight: 800;
+    font-size: 2rem;
+  }
+
+  .ideas-slide-content :global(p) {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: #4a5568;
+  }
+
+  .ideas-slide-content :global(strong) {
+    color: #667eea;
+    font-weight: 700;
+  }
+
+  .ideas-slide-content :global(em) {
+    font-style: italic;
+    color: #764ba2;
+  }
+
+  @media (max-width: 768px) {
+    .ideas-slide-content :global(h1) {
+      font-size: 2.25rem;
+    }
+
+    .ideas-slide-content :global(h2) {
+      font-size: 1.75rem;
+    }
+
+    .ideas-slide-content :global(li) {
+      font-size: 1.25rem;
+    }
+
+    .ideas-slide-content :global(p) {
+      font-size: 1.125rem;
+    }
+  }
+</style>

@@ -1,0 +1,93 @@
+---
+import { getAllSlides, parseSlideVariants, getNavigationData } from '../../../utils/slides';
+import SlideLayout from '../../../layouts/SlideLayout.astro';
+import MinimalSlide from '../../../components/slides/MinimalSlide.astro';
+import IdeasSlide from '../../../components/slides/IdeasSlide.astro';
+import DetailedSlide from '../../../components/slides/DetailedSlide.astro';
+
+export async function getStaticPaths() {
+  const slides = await getAllSlides();
+  const variants = ['minimal', 'ideas', 'detailed'] as const;
+
+  return variants.flatMap(variant =>
+    slides.map((slide) => ({
+      params: {
+        variant,
+        slide: slide.data.slideNumber.toString()
+      },
+      props: { slide, variant },
+    }))
+  );
+}
+
+const { slide, variant } = Astro.props;
+const allSlides = await getAllSlides();
+const navData = getNavigationData(slide.data.slideNumber, allSlides.length);
+const variants = parseSlideVariants(slide.body);
+const content = variants[variant as keyof typeof variants];
+---
+
+<SlideLayout
+  slideNumber={slide.data.slideNumber + 1}
+  totalSlides={allSlides.length}
+  title={slide.data.title}
+  variant={variant}
+  section={slide.data.section}
+>
+  {variant === 'minimal' && (
+    <MinimalSlide
+      title={slide.data.title}
+      content={content}
+      bookCover={slide.data.bookCover}
+    />
+  )}
+
+  {variant === 'ideas' && (
+    <IdeasSlide
+      title={slide.data.title}
+      content={content}
+    />
+  )}
+
+  {variant === 'detailed' && (
+    <DetailedSlide
+      title={slide.data.title}
+      content={content}
+      glossaryTerms={slide.data.glossaryTerms}
+    />
+  )}
+</SlideLayout>
+
+<script>
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    const currentUrl = new URL(window.location.href);
+    const pathParts = currentUrl.pathname.split('/');
+    const variant = pathParts[2];
+    const currentSlide = parseInt(pathParts[3]);
+
+    const slideNumber = document.querySelector('.slide-info')?.textContent?.split('/')[0]?.trim();
+    const totalSlides = document.querySelector('.slide-info')?.textContent?.split('/')[1]?.trim();
+
+    if (!slideNumber || !totalSlides) return;
+
+    const current = parseInt(slideNumber) - 1;
+    const total = parseInt(totalSlides);
+
+    if (e.key === 'ArrowRight' && current < total - 1) {
+      window.location.href = `/slides/${variant}/${current + 1}`;
+    } else if (e.key === 'ArrowLeft' && current > 0) {
+      window.location.href = `/slides/${variant}/${current - 1}`;
+    } else if (e.key === 'Home') {
+      window.location.href = `/slides/${variant}/0`;
+    } else if (e.key === 'End') {
+      window.location.href = `/slides/${variant}/${total - 1}`;
+    }
+  });
+</script>
+
+<style>
+  .slide-info {
+    font-family: 'Inter', sans-serif;
+  }
+</style>

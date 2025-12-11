@@ -1,0 +1,46 @@
+---
+import { getTermBySlug, getCategoryColor, getCategoryLabel } from '@/utils/glossary';
+
+interface Props {
+  relatedSlugs: string[];
+}
+
+const { relatedSlugs } = Astro.props;
+
+// Fetch all related terms
+const relatedTermsPromises = relatedSlugs.map(slug => getTermBySlug(slug));
+const relatedTerms = await Promise.all(relatedTermsPromises);
+
+// Filter out any undefined terms (in case a slug doesn't exist)
+const validTerms = relatedTerms.filter(t => t !== undefined);
+---
+
+{validTerms.length > 0 && (
+  <div class="related-terms">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">Related Concepts</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {validTerms.map(term => (
+        <a
+          href={`/glossary/${term!.slug}`}
+          class="block p-5 rounded-lg border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition-all group"
+        >
+          <div class="flex flex-col gap-2">
+            <div class="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+              {term!.data.term}
+            </div>
+            <div class="flex items-center gap-2">
+              <span class={`text-xs px-2 py-1 rounded-full border ${getCategoryColor(term!.data.category)}`}>
+                {getCategoryLabel(term!.data.category)}
+              </span>
+              {term!.data.thinker && (
+                <span class="text-xs text-gray-600 italic">
+                  {term!.data.thinker}
+                </span>
+              )}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+)}

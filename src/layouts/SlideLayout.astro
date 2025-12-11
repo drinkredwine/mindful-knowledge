@@ -1,0 +1,123 @@
+---
+import '@/styles/global.css';
+
+export interface Props {
+  slideNumber: number;
+  totalSlides: number;
+  title: string;
+  variant: 'minimal' | 'ideas' | 'detailed';
+  section?: string;
+}
+
+const { slideNumber, totalSlides, title, variant, section } = Astro.props;
+
+const variantClasses = {
+  minimal: 'minimal-slide',
+  ideas: 'ideas-slide',
+  detailed: 'detailed-slide',
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet" />
+    <title>{title} - Slide {slideNumber}</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        font-family: 'Inter', sans-serif;
+      }
+
+      .slide {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .minimal-slide {
+        font-family: 'Inter', sans-serif;
+      }
+
+      .ideas-slide {
+        font-family: 'Inter', sans-serif;
+      }
+
+      .detailed-slide {
+        font-family: 'Merriweather', serif;
+      }
+
+      .detailed-slide h1,
+      .detailed-slide h2,
+      .detailed-slide h3 {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div class={`slide ${variantClasses[variant]}`}>
+      <slot />
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="fixed bottom-0 left-0 right-0 p-6 flex justify-between items-center text-sm opacity-50 hover:opacity-100 transition-opacity z-50">
+      <div>
+        {slideNumber > 1 && (
+          <a
+            href={`/slides/${variant}/${slideNumber - 2}`}
+            class="px-4 py-2 rounded bg-black/10 hover:bg-black/20 transition-colors"
+          >
+            Previous
+          </a>
+        )}
+      </div>
+
+      <div class="text-center slide-info">
+        <div class="font-medium">{slideNumber} / {totalSlides}</div>
+        {section && <div class="text-xs mt-1 opacity-75">{section}</div>}
+        <div class="text-xs mt-1 opacity-60">Use arrow keys to navigate</div>
+      </div>
+
+      <div>
+        {slideNumber < totalSlides && (
+          <a
+            href={`/slides/${variant}/${slideNumber}`}
+            class="px-4 py-2 rounded bg-black/10 hover:bg-black/20 transition-colors"
+          >
+            Next
+          </a>
+        )}
+      </div>
+    </div>
+
+    <!-- Variant Switcher -->
+    <div class="fixed top-6 right-6 flex gap-2 text-xs opacity-50 hover:opacity-100 transition-opacity z-50">
+      <a
+        href={`/slides/minimal/${slideNumber - 1}`}
+        class={`px-3 py-1 rounded ${variant === 'minimal' ? 'bg-black/30' : 'bg-black/10 hover:bg-black/20'}`}
+      >
+        Minimal
+      </a>
+      <a
+        href={`/slides/ideas/${slideNumber - 1}`}
+        class={`px-3 py-1 rounded ${variant === 'ideas' ? 'bg-black/30' : 'bg-black/10 hover:bg-black/20'}`}
+      >
+        Ideas
+      </a>
+      <a
+        href={`/slides/detailed/${slideNumber - 1}`}
+        class={`px-3 py-1 rounded ${variant === 'detailed' ? 'bg-black/30' : 'bg-black/10 hover:bg-black/20'}`}
+      >
+        Detailed
+      </a>
+    </div>
+  </body>
+</html>

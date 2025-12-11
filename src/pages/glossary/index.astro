@@ -1,0 +1,154 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { getAllTags, getCategoryLabel } from '@/utils/glossary';
+
+const allTerms = await getCollection('glossary');
+
+// Sort terms alphabetically
+const sortedTerms = allTerms.sort((a, b) => a.data.term.localeCompare(b.data.term));
+
+// Group by category
+const termsByCategory = {
+  epistemology: sortedTerms.filter(t => t.data.category === 'epistemology'),
+  methodology: sortedTerms.filter(t => t.data.category === 'methodology'),
+  practice: sortedTerms.filter(t => t.data.category === 'practice'),
+  philosophy: sortedTerms.filter(t => t.data.category === 'philosophy'),
+};
+
+const categoryColors = {
+  epistemology: 'bg-blue-50 border-blue-200 hover:border-blue-400',
+  methodology: 'bg-purple-50 border-purple-200 hover:border-purple-400',
+  practice: 'bg-green-50 border-green-200 hover:border-green-400',
+  philosophy: 'bg-red-50 border-red-200 hover:border-red-400',
+};
+
+const categoryLabels = {
+  epistemology: 'Epistemology',
+  methodology: 'Methodology',
+  practice: 'Practice',
+  philosophy: 'Philosophy',
+};
+
+const categoryDescriptions = {
+  epistemology: 'The study of knowledge: what it is, how we acquire it, and its limits',
+  methodology: 'Frameworks and processes for organizing and transferring knowledge',
+  practice: 'Practical approaches and attitudes for learning and knowledge work',
+  philosophy: 'Philosophical perspectives on knowing, learning, and personal development',
+};
+
+// Get all unique tags for future filtering
+const allTags = getAllTags(allTerms);
+---
+
+<BaseLayout title="Glossary - All Terms">
+  <div class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-5xl font-bold text-gray-900 mb-4">Knowledge Glossary</h1>
+      <p class="text-xl text-gray-700 max-w-3xl mb-6">
+        Explore {allTerms.length} interconnected terms across four key domains of knowledge management
+      </p>
+
+      <!-- Search hint -->
+      <div class="bg-white/80 backdrop-blur-sm border border-gray-200 rounded-lg p-4 max-w-2xl">
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div>
+            <p class="text-sm text-gray-700">
+              <strong>Tip:</strong> Use your browser's search (Cmd/Ctrl + F) to find specific terms.
+              Advanced filtering and search features coming soon!
+            </p>
+            <p class="text-xs text-gray-600 mt-1">
+              {allTags.length} unique tags available across all terms
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+      {Object.entries(termsByCategory).map(([category, terms]) => (
+        <a
+          href={`#${category}`}
+          class={`block p-4 rounded-lg border-2 transition-all ${categoryColors[category as keyof typeof categoryColors]} hover:shadow-md`}
+        >
+          <div class="text-3xl font-bold text-gray-900">{terms.length}</div>
+          <div class="text-sm font-medium text-gray-700 mt-1">
+            {categoryLabels[category as keyof typeof categoryLabels]}
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Terms by Category -->
+    <div class="space-y-16">
+      {Object.entries(termsByCategory).map(([category, terms]) => (
+        <section id={category} class="scroll-mt-8">
+          <div class="mb-6">
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">
+              {categoryLabels[category as keyof typeof categoryLabels]}
+              <span class="text-gray-500 font-normal text-xl ml-2">({terms.length} terms)</span>
+            </h2>
+            <p class="text-gray-600">
+              {categoryDescriptions[category as keyof typeof categoryDescriptions]}
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {terms.map(term => (
+              <a
+                href={`/glossary/${term.slug}`}
+                class={`block p-5 rounded-lg border-2 transition-all ${categoryColors[category as keyof typeof categoryColors]} hover:shadow-lg group`}
+              >
+                <h3 class="font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  {term.data.term}
+                </h3>
+                {term.data.thinker && (
+                  <p class="text-sm text-gray-600 italic mb-2">{term.data.thinker}</p>
+                )}
+                <div class="mt-3 flex flex-wrap gap-2">
+                  {term.data.tags.slice(0, 3).map(tag => (
+                    <span class="text-xs px-2 py-1 rounded bg-white/60 text-gray-700 border border-gray-300">
+                      {tag}
+                    </span>
+                  ))}
+                  {term.data.tags.length > 3 && (
+                    <span class="text-xs px-2 py-1 text-gray-500">
+                      +{term.data.tags.length - 3} more
+                    </span>
+                  )}
+                </div>
+
+                <!-- Difficulty badge -->
+                <div class="mt-3 flex items-center gap-2">
+                  <span class="text-xs text-gray-500">
+                    {term.data.difficulty === 'beginner' && '⭐ Beginner'}
+                    {term.data.difficulty === 'intermediate' && '⭐⭐ Intermediate'}
+                    {term.data.difficulty === 'advanced' && '⭐⭐⭐ Advanced'}
+                  </span>
+                  {term.data.relatedTerms.length > 0 && (
+                    <span class="text-xs text-gray-500">
+                      • {term.data.relatedTerms.length} related
+                    </span>
+                  )}
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <!-- Back to top -->
+    <div class="mt-12 text-center">
+      <a href="#" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+        Back to Top
+      </a>
+    </div>
+  </div>
+</BaseLayout>

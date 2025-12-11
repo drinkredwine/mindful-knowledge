@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:root {
+  --color-epistemology: #1e40af;
+  --color-methodology: #7c3aed;
+  --color-practice: #059669;
+  --color-philosophy: #dc2626;
+}
+
+body {
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.glossary-content {
+  font-family: Merriweather, Georgia, serif;
+  line-height: 1.75;
+}
+
+.term-link {
+  text-decoration: underline;
+  text-decoration-color: var(--color-epistemology);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+.term-link:hover {
+  background-color: rgb(239 246 255);
+}
+
+.slide {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+}
+
+.minimal-slide {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.ideas-slide {
+  background: white;
+  color: rgb(17 24 39);
+}
+
+.detailed-slide {
+  background: rgb(249 250 251);
+  text-align: left;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}

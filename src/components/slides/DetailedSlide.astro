@@ -1,0 +1,162 @@
+---
+interface Props {
+  title: string;
+  content: string;
+  glossaryTerms?: string[];
+}
+
+const { title, content, glossaryTerms } = Astro.props;
+---
+
+<div class="detailed-slide-content h-screen overflow-y-auto p-12">
+  <div class="max-w-6xl mx-auto">
+    <div class="content prose prose-lg max-w-none" set:html={content} />
+
+    {glossaryTerms && glossaryTerms.length > 0 && (
+      <div class="glossary-links mt-8 pt-4 border-t border-gray-300">
+        <p class="text-sm text-gray-600 mb-2">Related Glossary Terms:</p>
+        <div class="flex flex-wrap gap-2">
+          {glossaryTerms.map(slug => (
+            <a
+              href={`/glossary/${slug}`}
+              class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm hover:bg-blue-200 transition"
+              target="_blank"
+            >
+              {slug.replace(/-/g, ' ')}
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .detailed-slide-content {
+    background: #f7fafc;
+    text-align: left;
+  }
+
+  .detailed-slide-content :global(h1) {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+    line-height: 1.2;
+  }
+
+  .detailed-slide-content :global(h2) {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #4a5568;
+  }
+
+  .detailed-slide-content :global(h3) {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: #4a5568;
+  }
+
+  .detailed-slide-content :global(h4) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: #667eea;
+  }
+
+  .detailed-slide-content :global(p) {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    color: #2d3748;
+  }
+
+  .detailed-slide-content :global(ul) {
+    font-size: 1.125rem;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .detailed-slide-content :global(ol) {
+    font-size: 1.125rem;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .detailed-slide-content :global(li) {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .detailed-slide-content :global(strong) {
+    font-weight: 700;
+    color: #667eea;
+  }
+
+  .detailed-slide-content :global(em) {
+    font-style: italic;
+    color: #764ba2;
+  }
+
+  .detailed-slide-content :global(blockquote) {
+    border-left: 4px solid #667eea;
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: #4a5568;
+  }
+
+  .detailed-slide-content :global(code) {
+    background: #e2e8f0;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+    color: #764ba2;
+  }
+
+  .detailed-slide-content :global(pre) {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+
+  .detailed-slide-content :global(pre code) {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+
+  .glossary-links a {
+    text-transform: capitalize;
+  }
+
+  @media (max-width: 768px) {
+    .detailed-slide-content {
+      padding: 2rem 1rem;
+    }
+
+    .detailed-slide-content :global(h1) {
+      font-size: 2rem;
+    }
+
+    .detailed-slide-content :global(h2) {
+      font-size: 1.75rem;
+    }
+
+    .detailed-slide-content :global(h3) {
+      font-size: 1.5rem;
+    }
+
+    .detailed-slide-content :global(p) {
+      font-size: 1.125rem;
+    }
+  }
+</style>
