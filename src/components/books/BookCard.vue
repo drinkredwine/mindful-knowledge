@@ -20,7 +20,7 @@ const amazonUrl = `https://www.amazon.com/s?k=${props.isbn}`;
 const worldcatUrl = `https://www.worldcat.org/isbn/${props.isbn}`;
 
 // Fix cover path for BASE_URL
-const coverPath = props.cover ? (import.meta.env.BASE_URL + props.cover.replace(/^\//, '')) : undefined;
+const coverPath = props.cover ? `${import.meta.env.BASE_URL}/${props.cover.replace(/^\//, '')}` : undefined;
 </script>
 
 <template>
