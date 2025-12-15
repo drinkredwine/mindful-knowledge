@@ -18,6 +18,7 @@ const props = defineProps<Props>();
 
 const amazonUrl = `https://www.amazon.com/s?k=${props.isbn}`;
 const worldcatUrl = `https://www.worldcat.org/isbn/${props.isbn}`;
+const detailsUrl = `${import.meta.env.BASE_URL}/books/${props.id}`;
 
 // Fix cover path for BASE_URL
 const coverPath = props.cover ? `${import.meta.env.BASE_URL}/${props.cover.replace(/^\//, '')}` : undefined;
@@ -26,7 +27,7 @@ const coverPath = props.cover ? `${import.meta.env.BASE_URL}/${props.cover.repla
 <template>
   <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all overflow-hidden border-2 border-gray-100 hover:border-epistemology flex flex-col h-full">
     <!-- Book Cover (top, cropped) -->
-    <div v-if="coverPath" class="w-full h-32 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+    <div v-if="coverPath" class="w-full h-64 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
       <img
         :src="coverPath"
         :alt="title"
@@ -90,6 +91,16 @@ const coverPath = props.cover ? `${import.meta.env.BASE_URL}/${props.cover.repla
             {{ topic.replace(/-/g, ' ') }}
           </a>
         </div>
+      </div>
+
+      <!-- View Details Button -->
+      <div class="mb-4">
+        <a
+          :href="detailsUrl"
+          class="block w-full text-center px-4 py-3 bg-epistemology hover:bg-epistemology/90 text-white font-semibold rounded-lg transition-colors"
+        >
+          View Full Details
+        </a>
       </div>
 
       <!-- Purchase Links -->

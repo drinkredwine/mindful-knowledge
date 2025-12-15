@@ -1,0 +1,170 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const response = await fetch(`${import.meta.env.SITE}${import.meta.env.BASE_URL}/books.json`);
+  const data = await response.json();
+  const books = Object.values(data.books);
+
+  return books.map((book: any) => ({
+    params: { id: book.id },
+    props: { book },
+  }));
+}
+
+const { book } = Astro.props;
+const coverPath = book.cover ? `${import.meta.env.BASE_URL}/${book.cover.replace(/^\//, '')}` : undefined;
+const amazonUrl = `https://www.amazon.com/s?k=${book.isbn}`;
+const worldcatUrl = `https://www.worldcat.org/isbn/${book.isbn}`;
+---
+
+<BaseLayout
+  title={`${book.title} - ${book.author}`}
+  description={book.summary}
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Back button -->
+    <a
+      href="/books"
+      class="inline-flex items-center gap-2 text-epistemology hover:text-epistemology/80 mb-8 transition-colors"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Back to Books
+    </a>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Left column: Book cover -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-24">
+          {coverPath && (
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-gray-200 mb-6">
+              <img
+                src={coverPath}
+                alt={book.title}
+                class="w-full h-auto object-contain"
+              />
+            </div>
+          )}
+
+          <!-- Purchase links -->
+          <div class="flex flex-col gap-3">
+            <a
+              href={amazonUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center justify-center gap-2 px-6 py-3 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg transition-colors"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.73-2.594 1.307-4.047 1.73-1.454.424-2.953.635-4.498.635-3.189 0-6.23-.695-9.124-2.088-.75-.36-1.476-.758-2.18-1.195l-.257-.163c-.163-.11-.235-.227-.169-.353zm23.655-1.238c-.24-.84-.234-1.6.02-2.28.253-.68.75-1.26 1.492-1.738.224-.143.363-.11.416.098.053.21-.023.356-.228.437-.72.27-1.23.66-1.528 1.17-.297.51-.374 1.11-.228 1.8.063.27.006.406-.17.406-.177 0-.316-.096-.416-.297l-.358-.596zm-1.956 0c-.24-.84-.234-1.6.02-2.28.253-.68.75-1.26 1.492-1.738.224-.143.363-.11.416.098.053.21-.023.356-.228.437-.72.27-1.23.66-1.528 1.17-.297.51-.374 1.11-.228 1.8.063.27.006.406-.17.406-.177 0-.316-.096-.416-.297l-.358-.596z"/>
+              </svg>
+              Buy on Amazon
+            </a>
+            <a
+              href={worldcatUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center justify-center gap-2 px-6 py-3 bg-epistemology hover:bg-epistemology/90 text-white font-medium rounded-lg transition-colors"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+              Find in Library
+            </a>
+          </div>
+
+          <!-- Metadata -->
+          <div class="mt-6 bg-white rounded-lg border border-gray-200 p-4">
+            <h3 class="font-semibold text-gray-900 mb-3">Book Info</h3>
+            <dl class="space-y-2 text-sm">
+              <div>
+                <dt class="text-gray-500">Author</dt>
+                <dd class="text-gray-900 font-medium">{book.author}</dd>
+              </div>
+              <div>
+                <dt class="text-gray-500">Year</dt>
+                <dd class="text-gray-900 font-medium">{book.year}</dd>
+              </div>
+              <div>
+                <dt class="text-gray-500">ISBN</dt>
+                <dd class="text-gray-900 font-mono text-xs">{book.isbn}</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: Book details -->
+      <div class="lg:col-span-2">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">{book.title}</h1>
+        <p class="text-xl text-gray-600 mb-8">{book.author}</p>
+
+        <!-- Summary -->
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Summary</h2>
+          <p class="text-lg text-gray-700 leading-relaxed">{book.summary}</p>
+        </section>
+
+        <!-- Key Quote -->
+        {book.keyQuote && (
+          <section class="mb-8">
+            <div class="bg-epistemology/5 border-l-4 border-epistemology px-6 py-4 rounded-r-lg">
+              <h3 class="text-sm font-semibold text-epistemology uppercase tracking-wide mb-2">
+                Key Quote
+              </h3>
+              <blockquote class="text-lg text-gray-800 italic">
+                "{book.keyQuote}"
+              </blockquote>
+            </div>
+          </section>
+        )}
+
+        <!-- Key Insight -->
+        {book.keyInsight && (
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Key Insight</h2>
+            <div class="bg-methodology/5 border-l-4 border-methodology px-6 py-4 rounded-r-lg">
+              <p class="text-lg text-gray-800">{book.keyInsight}</p>
+            </div>
+          </section>
+        )}
+
+        <!-- Critique -->
+        {book.critique && (
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Critical Perspective</h2>
+            <div class="bg-philosophy/5 border-l-4 border-philosophy px-6 py-4 rounded-r-lg">
+              <p class="text-lg text-gray-800">{book.critique}</p>
+            </div>
+          </section>
+        )}
+
+        <!-- Relevance -->
+        <section class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Relevance to Knowledge Management</h2>
+          <div class="bg-practice/5 border-l-4 border-practice px-6 py-4 rounded-r-lg">
+            <p class="text-lg text-gray-800">{book.relevance}</p>
+          </div>
+        </section>
+
+        <!-- Related Topics -->
+        {book.topics && book.topics.length > 0 && (
+          <section>
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Related Concepts</h2>
+            <div class="flex flex-wrap gap-3">
+              {book.topics.map((topic: string) => (
+                <a
+                  href={`/glossary/${topic}`}
+                  class="px-4 py-2 rounded-lg bg-epistemology/10 text-epistemology hover:bg-epistemology hover:text-white font-medium transition-colors"
+                >
+                  {topic.replace(/-/g, ' ')}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+    </div>
+  </div>
+</BaseLayout>
