@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 
 const mobileMenuOpen = ref(false);
 const currentPath = ref('');
+const baseUrl = import.meta.env.BASE_URL;
 
 const toggleMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value;
@@ -13,10 +14,11 @@ onMounted(() => {
 });
 
 const isActive = (path: string) => {
+  const fullPath = baseUrl === '/' ? path : `${baseUrl}${path}`;
   if (path === '/') {
-    return currentPath.value === '/';
+    return currentPath.value === fullPath || currentPath.value === baseUrl;
   }
-  return currentPath.value.startsWith(path);
+  return currentPath.value.startsWith(fullPath);
 };
 
 const getLinkClass = (path: string) => {
@@ -36,7 +38,7 @@ const getMobileLinkClass = (path: string) => {
       <div class="flex justify-between items-center h-16">
         <!-- Logo/Brand -->
         <div class="flex items-center">
-          <a href="/" class="flex items-center gap-2 text-xl font-bold text-gray-900 hover:text-epistemology transition-colors">
+          <a :href="baseUrl" class="flex items-center gap-2 text-xl font-bold text-gray-900 hover:text-epistemology transition-colors">
             <span class="text-2xl">🧠</span>
             <span class="hidden sm:inline">TUKE Knowledge Management</span>
             <span class="sm:hidden">TUKE KM</span>
@@ -45,19 +47,19 @@ const getMobileLinkClass = (path: string) => {
 
         <!-- Desktop Navigation -->
         <div class="hidden md:flex items-center space-x-6">
-          <a href="/" :class="getLinkClass('/')">
+          <a :href="baseUrl" :class="getLinkClass('/')">
             Home
           </a>
-          <a href="/glossary" :class="getLinkClass('/glossary')">
+          <a :href="`${baseUrl}/glossary`" :class="getLinkClass('/glossary')">
             Glossary
           </a>
-          <a href="/slides/minimal/1" :class="getLinkClass('/slides')">
+          <a :href="`${baseUrl}/slides/minimal/1`" :class="getLinkClass('/slides')">
             Slides
           </a>
-          <a href="/books" :class="getLinkClass('/books')">
+          <a :href="`${baseUrl}/books`" :class="getLinkClass('/books')">
             Books
           </a>
-          <a href="/about" :class="getLinkClass('/about')">
+          <a :href="`${baseUrl}/about`" :class="getLinkClass('/about')">
             About
           </a>
         </div>
@@ -89,19 +91,19 @@ const getMobileLinkClass = (path: string) => {
 
       <!-- Mobile Navigation -->
       <div v-if="mobileMenuOpen" class="md:hidden py-4 space-y-2 border-t border-gray-100">
-        <a href="/" :class="getMobileLinkClass('/')">
+        <a :href="baseUrl" :class="getMobileLinkClass('/')">
           Home
         </a>
-        <a href="/glossary" :class="getMobileLinkClass('/glossary')">
+        <a :href="`${baseUrl}/glossary`" :class="getMobileLinkClass('/glossary')">
           Glossary
         </a>
-        <a href="/slides/minimal/1" :class="getMobileLinkClass('/slides')">
+        <a :href="`${baseUrl}/slides/minimal/1`" :class="getMobileLinkClass('/slides')">
           Slides
         </a>
-        <a href="/books" :class="getMobileLinkClass('/books')">
+        <a :href="`${baseUrl}/books`" :class="getMobileLinkClass('/books')">
           Books
         </a>
-        <a href="/about" :class="getMobileLinkClass('/about')">
+        <a :href="`${baseUrl}/about`" :class="getMobileLinkClass('/about')">
           About
         </a>
       </div>

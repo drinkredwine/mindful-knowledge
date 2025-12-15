@@ -39,8 +39,8 @@ const allTopics = [...new Set(books.flatMap(book => book.topics))].sort();
         <li><strong>Applied psychology</strong> - Seligman's learned optimism and explanatory styles</li>
       </ul>
       <p class="text-gray-700 leading-relaxed mt-4">
-        Each book connects to specific terms in the <a href="/glossary" class="text-epistemology hover:underline font-semibold">glossary</a> and
-        concepts in the <a href="/slides/minimal/1" class="text-methodology hover:underline font-semibold">presentation slides</a>.
+        Each book connects to specific terms in the <a href={`${import.meta.env.BASE_URL}/glossary`} class="text-epistemology hover:underline font-semibold">glossary</a> and
+        concepts in the <a href={`${import.meta.env.BASE_URL}/slides/minimal/1`} class="text-methodology hover:underline font-semibold">presentation slides</a>.
       </p>
     </div>
 
@@ -50,7 +50,7 @@ const allTopics = [...new Set(books.flatMap(book => book.topics))].sort();
       <div class="flex flex-wrap gap-2">
         {allTopics.map(topic => (
           <a
-            href={`/glossary/${topic}`}
+            href={`${import.meta.env.BASE_URL}/glossary/${topic}`}
             class="px-3 py-1 bg-white border-2 border-gray-200 hover:border-epistemology text-gray-700 hover:text-epistemology rounded-lg text-sm font-medium transition-colors"
           >
             {topic.replace(/-/g, ' ')}
@@ -88,13 +88,13 @@ const allTopics = [...new Set(books.flatMap(book => book.topics))].sort();
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a
-          href="/glossary"
+          href={`${import.meta.env.BASE_URL}/glossary`}
           class="inline-flex items-center justify-center px-6 py-3 bg-epistemology text-white font-semibold rounded-lg hover:bg-epistemology/90 transition-colors"
         >
           Browse Glossary Terms
         </a>
         <a
-          href="/slides/minimal/1"
+          href={`${import.meta.env.BASE_URL}/slides/minimal/1`}
           class="inline-flex items-center justify-center px-6 py-3 bg-methodology text-white font-semibold rounded-lg hover:bg-methodology/90 transition-colors"
         >
           View Presentation Slides

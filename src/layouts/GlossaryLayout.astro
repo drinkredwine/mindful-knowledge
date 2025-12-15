@@ -51,7 +51,7 @@ const difficultyEmoji = {
             <div class="max-h-96 overflow-y-auto pr-2 -mr-2 space-y-0.5">
               {sortedTerms.map(t => (
                 <a
-                  href={`/glossary/${t.slug}`}
+                  href={`${import.meta.env.BASE_URL}/glossary/${t.slug}`}
                   class={`block px-2 py-1.5 text-sm rounded transition-all ${
                     t.slug === currentSlug
                       ? 'bg-epistemology text-white font-medium shadow-sm'
@@ -120,7 +120,7 @@ const difficultyEmoji = {
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {relatedTerms.map(relatedTerm => (
                   <a
-                    href={`/glossary/${relatedTerm.toLowerCase().replace(/\s+/g, '-')}`}
+                    href={`${import.meta.env.BASE_URL}/glossary/${relatedTerm.toLowerCase().replace(/\s+/g, '-')}`}
                     class="block p-4 rounded-lg border border-gray-200 hover:border-epistemology hover:bg-blue-50 transition-all"
                   >
                     <span class="text-gray-900 font-medium">{relatedTerm}</span>
